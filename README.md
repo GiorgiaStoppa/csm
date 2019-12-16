@@ -12,7 +12,7 @@ status](https://codecov.io/gh/UBESP-DCTV/csm/branch/master/graph/badge.svg)](htt
 # CSM
 
 The goal of csm is to build a Central Statistical Monitoring (CSM) tool
-that aims to sistematically check data quality of the clinical studies
+that aims to systematically check data quality of the clinical studies
 managed by the Center for Clinical Trials and Biometrics (CCTB) of the
 Unit of Biostatistics, Epidemiology and Public Health (UBEPH),
 University of Padova, Italy.
