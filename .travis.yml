@@ -12,12 +12,15 @@ r:
   - 3.3
   - 3.4
   - oldrel
-  - release
-    after_success:
-    - Rscript -e 'covr::codecov()'
 
 # osx for devel have issues to install devtools
 matrix:
   include:
   - r: devel
     os: linux
+  - r: release
+    os: linux
+    after_success:
+    - Rscript -e 'covr::codecov()'
+  - r: release
+    os: osx
