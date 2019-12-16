@@ -6,10 +6,10 @@
 \alias{csm-package}
 \title{csm: Central Statistical Monitoring}
 \description{
-The goal of `csm` is to build a Central Statistical 
-    Monitoring (CSM) tool that aims to systematically check data quality 
-    of the clinical studies managed by the Center for Clinical Trials 
-    and Biometrics (CCTB) of the *Unit of Biostatistics, Epidemiology and 
+The goal of `csm` is to build a Central Statistical
+    Monitoring (CSM) tool that aims to systematically check data quality
+    of the clinical studies managed by the Center for Clinical Trials and
+    Biometrics (CCTB) of the *Unit of Biostatistics, Epidemiology and
     Public Health (UBEPH)*, University of Padova, Italy.
 }
 \seealso{
