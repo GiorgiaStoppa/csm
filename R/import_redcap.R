@@ -7,7 +7,12 @@
 #'
 #' @param url (character) a character string the specifies the url.
 #'
-#' @return (data.frame) The data of the study stored as a data.frame.
+#' @return (list) a list with 2 data.frame. One data.frame contains the
+#'                data of the study, whereas the other contains three
+#'                columns with the name of each field, i.e. the names
+#'                of the variables in the first data.frame, the names of
+#'                the form associated to each field and the labels
+#'                associated to each field
 #'
 #' @examples
 #'
@@ -21,7 +26,7 @@ import_redcap <- function(token, url) {
     assertive::is_a_string(url)
 
     # Import all the field of ROLEX db
-    REDCapR::redcap_read(
+    df <- REDCapR::redcap_read(
         redcap_uri = url, token = token,
         export_data_access_groups = TRUE,
         raw_or_label = "raw",
@@ -30,5 +35,12 @@ import_redcap <- function(token, url) {
         guess_type = FALSE,
         verbose = FALSE
     )$data
+
+    meta_data <- REDCapR::redcap_metadata_read(
+        redcap_uri = url, token = token,
+        verbose = FALSE
+    )[["data"]][, c("field_name", "form_name", "field_name")]
+
+    list("data" = df, "meta_data" = meta_data)
 
 }

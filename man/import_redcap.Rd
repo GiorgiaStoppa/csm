@@ -12,7 +12,12 @@ import_redcap(token, url)
 \item{url}{(character) a character string the specifies the url.}
 }
 \value{
-(data.frame) The data of the study stored as a data.frame.
+(list) a list with 2 data.frame. One data.frame contains the
+data of the study, whereas the other contains three
+columns with the name of each field, i.e. the names
+of the variables in the first data.frame, the names of
+the form associated to each field and the labels
+associated to each field
 }
 \description{
 Import the data from REDCap repository into a data.frame format.
