@@ -22,8 +22,8 @@
 #'
 import_redcap <- function(token, url) {
 
-    assertive::is_a_string(token)
-    assertive::is_a_string(url)
+    assertive::assert_is_a_string(token)
+    assertive::assert_is_a_string(url)
 
     # Import all the field of ROLEX db
     df <- REDCapR::redcap_read(
