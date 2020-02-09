@@ -14,19 +14,19 @@ test_that("Class of output is correct", {
 
 test_that("Class of the imported data is ok", {
 
-    expect_is(
-        import_redcap(token = token, url = url)[["data"]],
-        class = "data.frame"
-    )
+    data <- import_redcap(token = token, url = url)[["data"]]
+
+    data %>% expect_is("data.frame")
+    unique(names(data)) %>% expect_length(length(data))
 
 })
 
 test_that("Class of the metadata is ok", {
 
-    expect_is(
-        import_redcap(token = token, url = url)[["meta_data"]],
-        class = "data.frame"
-    )
+    mdata <- import_redcap(token = token, url = url)[["meta_data"]]
+
+    mdata %>% expect_is("data.frame")
+    unique(names(mdata)) %>% expect_length(length(mdata))
 
 })
 

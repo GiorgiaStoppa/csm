@@ -39,7 +39,7 @@ import_redcap <- function(token, url) {
     meta_data <- REDCapR::redcap_metadata_read(
         redcap_uri = url, token = token,
         verbose = FALSE
-    )[["data"]][, c("field_name", "form_name", "field_name")]
+    )[["data"]][, c("field_name", "form_name", "field_label")]
 
     list("data" = df, "meta_data" = meta_data)
 
