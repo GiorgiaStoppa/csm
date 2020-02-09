@@ -4,6 +4,11 @@ language: R
 sudo: true
 cache: packages
 
+r_packages:
+ - backports
+ - remotes
+ - devtools
+
 r:
  - oldrel
  - release
