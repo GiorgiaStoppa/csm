@@ -5,18 +5,23 @@ sudo: true
 cache: packages
 
 r_packages:
- - backports
- - remotes
- - devtools
+  - backports
+  - remotes
+  - devtools
 
 r:
- - oldrel
- - release
- - devel
+  - oldrel
+  - release
+  - devel
 
 os:
- - linux
- - osx
+  - linux
+  - osx
+
+matrix:
+  exclude:
+    - r: devel
+      os: osx
 
 after_success:
- - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::codecov()'
