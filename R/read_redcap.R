@@ -18,14 +18,16 @@
 #'
 #' url     <- "https://bbmc.ouhsc.edu/redcap/api/"
 #' token   <- "9A81268476645C4E5F03428B8AC3AA7B"
-#' csm:::import_redcap(token = token, url = url)
+#' csm:::read_redcap(url = url, token = token)
 #'
-import_redcap <- function(token, url) {
+read_redcap <- function(url = NULL, token = NULL) {
 
-    assertive::is_a_string(token)
-    assertive::is_a_string(url)
+    assertive::is_not_null(token)
+    assertive::is_not_null(url)
+    assertive::assert_is_a_string(token)
+    assertive::assert_is_a_string(url)
 
-    # Import all the field of ROLEX db
+    # Import all the data from the study
     df <- REDCapR::redcap_read(
         redcap_uri = url, token = token,
         export_data_access_groups = TRUE,
@@ -36,11 +38,27 @@ import_redcap <- function(token, url) {
         verbose = FALSE
     )$data
 
+    # Store the metadata into a separate object
     meta_data <- REDCapR::redcap_metadata_read(
         redcap_uri = url, token = token,
         verbose = FALSE
-    )[["data"]][, c("field_name", "form_name", "field_name")]
+    )[["data"]] %>%
+        dplyr::select(
+            field_name, form_name, field_label,
+            select_choices_or_calculations, field_note,
+            text_validation_type_or_show_slider_number,
+            text_validation_min, text_validation_max,
+            branching_logic
+        ) %>%
+        dplyr::rename(
+            field_type = text_validation_type_or_show_slider_number,
+            validation_min = text_validation_min,
+            validation_max = text_validation_max
+        )
 
-    list("data" = df, "meta_data" = meta_data)
+    list(
+        "study_data" = df,
+        "study_metadata" = meta_data
+    )
 
 }
