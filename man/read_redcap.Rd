@@ -4,7 +4,7 @@
 \alias{read_redcap}
 \title{Import the data from REDCap}
 \usage{
-read_redcap(url = NULL, token = NULL)
+read_redcap(url, token)
 }
 \arguments{
 \item{url}{(character) a character string the specifies the url.}
