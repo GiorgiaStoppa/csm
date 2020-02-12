@@ -1,13 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- badges: start -->
+
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Travis build
+status](https://travis-ci.com/UBESP-DCTV/csm.svg?branch=master)](https://travis-ci.com/UBESP-DCTV/csm)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/UBESP-DCTV/csm?branch=master&svg=true)](https://ci.appveyor.com/project/UBESP-DCTV/csm)
+[![Coverage
+status](https://codecov.io/gh/UBESP-DCTV/csm/branch/master/graph/badge.svg)](https://codecov.io/gh/UBESP-DCTV/csm)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/csm)](https://cran.r-project.org/package=csm)
-[![Travis build
-status](https://travis-ci.com/UBESP-DCTV/csm.svg?token=wGyFLep97LHjNKfPGjkg&branch=master)](https://travis-ci.com/UBESP-DCTV/csm)
-[![Coverage
-status](https://codecov.io/gh/UBESP-DCTV/csm/branch/master/graph/badge.svg)](https://codecov.io/github/UBESP-DCTV/csm?branch=master)
+<!-- badges: end -->
 
 # CSM
 
