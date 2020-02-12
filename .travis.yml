@@ -4,10 +4,6 @@ language: R
 sudo: true
 cache: packages
 
-os:
-  - linux
-  - osx
-
 r_packages:
   - backports
   - remotes
@@ -21,6 +17,11 @@ r:
 os:
   - linux
   - osx
+
+matrix:
+  exclude:
+    - r: devel
+      os: osx
 
 after_success:
  - Rscript -e 'covr::codecov()'

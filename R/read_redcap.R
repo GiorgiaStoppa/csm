@@ -20,10 +20,8 @@
 #' token   <- "9A81268476645C4E5F03428B8AC3AA7B"
 #' csm:::read_redcap(url = url, token = token)
 #'
-read_redcap <- function(url = NULL, token = NULL) {
+read_redcap <- function(url, token) {
 
-    assertive::is_not_null(token)
-    assertive::is_not_null(url)
     assertive::assert_is_a_string(token)
     assertive::assert_is_a_string(url)
 
@@ -43,22 +41,14 @@ read_redcap <- function(url = NULL, token = NULL) {
         redcap_uri = url, token = token,
         verbose = FALSE
     )[["data"]] %>%
-        dplyr::select(
-            field_name, form_name, field_label,
-            select_choices_or_calculations, field_note,
-            text_validation_type_or_show_slider_number,
-            text_validation_min, text_validation_max,
-            branching_logic
-        ) %>%
         dplyr::rename(
-            field_type = text_validation_type_or_show_slider_number,
-            validation_min = text_validation_min,
-            validation_max = text_validation_max
+            validation_min = .data$text_validation_min,
+            validation_max = .data$text_validation_max
         )
 
     list(
-        "study_data" = df,
-        "study_metadata" = meta_data
+        "data" = df,
+        "meta_data" = meta_data
     )
 
 }
