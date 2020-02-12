@@ -15,8 +15,8 @@ knitr::opts_chunk$set(
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN status](https://www.r-pkg.org/badges/version/csm)](https://cran.r-project.org/package=csm)
-[![Travis build status](https://travis-ci.com/UBESP-DCTV/csm.svg?token=wGyFLep97LHjNKfPGjkg&branch=master)](https://travis-ci.com/UBESP-DCTV/csm)
-[![Coverage status](https://codecov.io/gh/UBESP-DCTV/csm/branch/master/graph/badge.svg)](https://codecov.io/github/UBESP-DCTV/csm?branch=master)
+[![Travis build status](https://travis-ci.com/UBESP-DCTV/csm.svg?branch=master)](https://travis-ci.com/UBESP-DCTV/csm)
+[![Coverage status](https://codecov.io/gh/UBESP-DCTV/csm/branch/master/graph/badge.svg)](https://codecov.io/gh/UBESP-DCTV/csm)
 
 # CSM
 The goal of csm is to build a Central Statistical Monitoring (CSM) tool

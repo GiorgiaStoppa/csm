@@ -5,9 +5,9 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/csm)](https://cran.r-project.org/package=csm)
 [![Travis build
-status](https://travis-ci.com/UBESP-DCTV/csm.svg?token=wGyFLep97LHjNKfPGjkg&branch=master)](https://travis-ci.com/UBESP-DCTV/csm)
+status](https://travis-ci.com/UBESP-DCTV/csm.svg?branch=master)](https://travis-ci.com/UBESP-DCTV/csm)
 [![Coverage
-status](https://codecov.io/gh/UBESP-DCTV/csm/branch/master/graph/badge.svg)](https://codecov.io/github/UBESP-DCTV/csm?branch=master)
+status](https://codecov.io/gh/UBESP-DCTV/csm/branch/master/graph/badge.svg)](https://codecov.io/gh/UBESP-DCTV/csm)
 
 # CSM
 
