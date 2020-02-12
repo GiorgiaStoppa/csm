@@ -21,16 +21,14 @@
 #' range   <- c(3, 12)
 #' csm:::continuous_anomal_values(x = x, range = range)
 #'
-continuous_anomal_values <- function(x = NULL, range = NULL) {
+continuous_anomal_values <- function(x, range) {
 
-    assertive::is_not_null(x)
-    assertive::is_not_null(range)
     assertive::is_numeric(x)
     assertive::is_numeric(range)
 
     extreme <- x[x < range[1] | x > range[2]]
 
-    ifelse(length(extreme) == 0, NA_real_, extreme)
+    if (length(extreme) == 0) {NA} else {extreme}
 
 }
 
