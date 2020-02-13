@@ -18,7 +18,7 @@
 #'
 #' gender <- c("male", "female", "male", "male", "female", "x")
 #' values <- c("male", "female")
-#' csm:::categorical_anomal_values(x = x, values = values)
+#' csm:::categorical_anomal_values(x = gender, values = values)
 #'
 categorical_anomal_values <- function(x, values) {
 
