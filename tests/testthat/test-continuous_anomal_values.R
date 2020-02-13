@@ -41,6 +41,21 @@ test_that("Error when a string is passed to range", {
 
 })
 
+test_that("Error when x is not passed", {
+
+    range <- c(5, 8)
+
+    expect_error(continuous_anomal_values(range = range))
+
+})
+
+test_that("Error when range is not passed", {
+
+    x <- rnorm(n = 10L, mean = 10, sd = 2)
+
+    expect_error(continuous_anomal_values(x = x))
+
+})
 
 
 
