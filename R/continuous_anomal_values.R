@@ -23,12 +23,12 @@
 #'
 continuous_anomal_values <- function(x, range) {
 
-    assertive::is_numeric(x)
-    assertive::is_numeric(range)
+    assertive::assert_is_numeric(x)
+    assertive::assert_is_numeric(range)
 
     extreme <- x[x < range[1] | x > range[2]]
 
-    if (length(extreme) == 0) {NA} else {extreme}
+    if (length(extreme) == 0) {NA_real_} else {extreme}
 
 }
 
