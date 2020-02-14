@@ -48,3 +48,10 @@ example) on [github](https://github.com/UBESP-DCTV/csm/issues).
 Please note that the ‘csm’ project is released with a [Contributor Code
 of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this
 project, you agree to abide by its terms.
+
+## Warnings
+
+The package is currently under active development. The functions are not
+stable yet and the users should consider their usage for experimental
+purposes only. Right now, there is guarantee that the package will be
+stable.
