@@ -29,10 +29,10 @@ read_redcap <- function(url, token) {
     df <- REDCapR::redcap_read(
         redcap_uri = url, token = token,
         export_data_access_groups = TRUE,
-        raw_or_label = "raw",
-        raw_or_label_headers = "raw",
+        raw_or_label = "label",
         export_checkbox_label = TRUE,
-        guess_type = FALSE,
+        batch_size = 1000L,
+        guess_type = TRUE,
         verbose = FALSE
     )$data
 
