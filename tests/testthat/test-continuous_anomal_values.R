@@ -1,8 +1,8 @@
 
-test_that("Class of output is correct", {
+x <- rnorm(n = 10L, mean = 10, sd = 2)
+range   <- c(6, 9)
 
-    x <- rnorm(n = 10L, mean = 10, sd = 2)
-    range   <- c(6, 9)
+test_that("Class of output is correct", {
 
     expect_is(
         continuous_anomal_values(x = x, range = range),
@@ -11,49 +11,61 @@ test_that("Class of output is correct", {
 
 })
 
-test_that("NA if all the values are inside the range", {
+range   <- c(2, 20)
 
-    x <- rnorm(n = 10L, mean = 10, sd = 2)
-    range   <- c(2, 20)
+test_that("NA if all the values are inside the range", {
 
     expect_equal(
         continuous_anomal_values(x = x, range = range),
-        NA_real_
+        numeric(0)
     )
 
 })
 
+x <- "aa"
+range   <- c(5, 8)
+
 test_that("Error when a string is passed to x", {
 
-    x <- "aa"
-    range   <- c(5, 8)
-
-    expect_error(continuous_anomal_values(x = x, range = range))
+    expect_error(
+        continuous_anomal_values(x = x, range = range),
+        regexp = "x is not of class 'numeric'; it has class 'character'."
+    )
 
 })
+
+x <- rnorm(n = 10L, mean = 10, sd = 2)
+range   <- "aa"
 
 test_that("Error when a string is passed to range", {
 
-    x <- rnorm(n = 10L, mean = 10, sd = 2)
-    range   <- "aa"
-
-    expect_error(continuous_anomal_values(x = x, range = range))
+    expect_error(
+        continuous_anomal_values(x = x, range = range),
+        regexp = "range is not of class 'numeric'; it has class 'character'."
+    )
 
 })
+
+range <- c(5, 8)
 
 test_that("Error when x is not passed", {
 
-    range <- c(5, 8)
-
-    expect_error(continuous_anomal_values(range = range))
+    expect_error(
+        continuous_anomal_values(range = range),
+        regexp = "argument \"x\" is missing, with no default"
+    )
 
 })
 
+x <- rnorm(n = 10L, mean = 10, sd = 2)
+
 test_that("Error when range is not passed", {
 
-    x <- rnorm(n = 10L, mean = 10, sd = 2)
+    expect_error(
+        continuous_anomal_values(x = x),
+        regexp = "argument \"range\" is missing, with no default"
+    )
 
-    expect_error(continuous_anomal_values(x = x))
 
 })
 

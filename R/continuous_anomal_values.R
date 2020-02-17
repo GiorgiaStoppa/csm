@@ -26,9 +26,19 @@ continuous_anomal_values <- function(x, range) {
     assertive::assert_is_numeric(x)
     assertive::assert_is_numeric(range)
 
-    extreme <- x[x < range[1] | x > range[2]]
+    min_val <- range[[1]]
+    max_val <- range[[2]]
 
-    if (length(extreme) == 0) {NA_real_} else {extreme}
+    if (max_val < min_val) {
+        warning("Max in range is below the min. They will be switched.")
+        aux <- max_val
+        max_val <- min_val
+        min_val <- aux
+    }
+
+    out_of_range <- x < min_val | x > max_val
+
+    x[out_of_range]
 
 }
 
