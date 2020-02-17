@@ -4,7 +4,7 @@
 \alias{continuous_anomal_values}
 \title{Check continuous out-of-range values}
 \usage{
-continuous_anomal_values(x = NULL, range = NULL)
+continuous_anomal_values(x, range)
 }
 \arguments{
 \item{x}{(numeric) a numeric vector.}
