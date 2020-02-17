@@ -69,6 +69,16 @@ test_that("Error when range is not passed", {
 
 })
 
+range <- c(5, 3)
 
+test_that("Warning when max value is less than min value", {
+
+    expect_warning(
+        continuous_anomal_values(x = x, range = range),
+        regexp = "Max in range is below the min. They will be switched."
+    )
+
+
+})
 
 
