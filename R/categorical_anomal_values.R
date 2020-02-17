@@ -25,9 +25,9 @@ categorical_anomal_values <- function(x, values) {
     assertive::assert_is_character(x)
     assertive::assert_is_character(values)
 
-    out_values <- x %in% values
+    wrong_values <- !x %in% values
 
-    if (all(out_values)) {NA_character_} else {x[!out_values]}
+    x[wrong_values]
 
 }
 
