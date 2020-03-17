@@ -37,48 +37,48 @@
 #' add_sheets_prefix(sample_df, exept = "a")
 add_sheets_prefix <- function(data, exept = NULL) {
 
-    data_names <- names(data)
+  data_names <- names(data)
 
-    is_sheet_marker <- stringr::str_detect(data_names, "_complete$")
-    if (!any(is_sheet_marker)) usethis::ui_stop("
+  is_sheet_marker <- stringr::str_detect(data_names, "_complete$")
+  if (!any(is_sheet_marker)) usethis::ui_stop("
     There are not any variables terminanting with {ui_value('_complete')},
     which is supposed to be the sheets marker.
   ")
 
-    sheets_names <- data_names[is_sheet_marker] %>%
-        stringr::str_remove("_complete$|_da_compilare.*$")
+  sheets_names <- data_names[is_sheet_marker] %>%
+    stringr::str_remove("_complete$|_da_compilare.*$")
 
-    if (!is.null(exept)) {
-        assertive::assert_is_subset(exept, data_names)
-    } else {
-        exept <- character()
+  if (!is.null(exept)) {
+    assertive::assert_is_subset(exept, data_names)
+  } else {
+    exept <- character()
+  }
+
+
+  current_sheet <- 1L
+  new_var_names <- vector("character", length(data_names))
+  for (i in seq_along(data_names)) {
+    sheet_name <- sheets_names[[current_sheet]]
+    var_name   <- data_names[[i]]
+
+    if (is_sheet_marker[[i]]) {
+      new_var_names[[i]] <- var_name
+      current_sheet[]    <- current_sheet + 1L
+      next()
     }
 
-
-    current_sheet <- 1L
-    new_var_names <- vector("character", length(data_names))
-    for (i in seq_along(data_names)) {
-        sheet_name <- sheets_names[[current_sheet]]
-        var_name   <- data_names[[i]]
-
-        if (is_sheet_marker[[i]]) {
-            new_var_names[[i]] <- var_name
-            current_sheet[]    <- current_sheet + 1L
-            next()
-        }
-
-        if (var_name %in% exept) {
-            new_var_names[[i]] <- var_name
-            next()
-        }
-
-        new_var_names[[i]] <- paste0(sheet_name, "_", var_name)
+    if (var_name %in% exept) {
+      new_var_names[[i]] <- var_name
+      next()
     }
 
-    new_var_names <- new_var_names %>%
-        stringr::str_replace("_da_compilare.+(_complete)", "\\1")
+    new_var_names[[i]] <- paste0(sheet_name, "_", var_name)
+  }
 
-    names(data) <- new_var_names
-    attr(data, "sheet_names") <- sheets_names
-    data
+  new_var_names <- new_var_names %>%
+    stringr::str_replace("_da_compilare.+(_complete)", "\\1")
+
+  names(data) <- new_var_names
+  attr(data, "sheet_names") <- sheets_names
+  data
 }
