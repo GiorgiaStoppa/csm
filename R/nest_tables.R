@@ -5,8 +5,9 @@
 #'
 #' @param data (list) the output of [read_redcap].
 #'
-#' @param id (character) the name of the variable that identifies the id
-#'                       of the record.
+#' @param redcap_info (character) the names of the variables that
+#'                                identify the subject and the site
+#'                                where the subject was enrolled.
 #'
 #' @return [tibble][tibble::tibble-package] a tibble that contains a
 #'                                          column that identifies the
@@ -22,6 +23,7 @@
 #'
 #' dd <- tibble(
 #'   id = c(rep("1", 2L), rep("2", 2L), rep("3", 2L)),
+#'   site = c(rep("AA", 4L), rep("BB", 2L)),
 #'   fields = rep(c("demo and clinical", "discharge"), 3L),
 #'   sex = c(
 #'     "female", NA_character_,
@@ -70,20 +72,20 @@
 #'   )
 #' )
 #'
-#' nest_tables(data = dd, id = "id")
+#' nest_tables(data = dd, redcap_info = c("id", "site"))
 
-nest_tables <- function(data, id) {
+nest_tables <- function(data, redcap_info) {
 
   assertive::assert_is_data.frame(data)
-  assertive::assert_is_character(id)
+  assertive::assert_is_character(redcap_info)
 
   data %>%
       tidyr::nest(tables = -.data$fields) %>%
       dplyr::mutate(
           tables = purrr::map(.data$tables, ~{
                   janitor::remove_empty(.x, c("rows", "cols")) %>%
-                  add_sheets_prefix(exept = id) %>%
-                  sheets_to_var("sheets", id) %>%
+                  add_sheets_prefix(exept = redcap_info) %>%
+                  sheets_to_var("sheets", redcap_info) %>%
                   tidyr::nest(tables = -.data$sheets)
           })
       ) %>%
@@ -102,9 +104,12 @@ sheets_to_var <- function(data, name, exept) {
       "_(.*)"
   )
 
+  unused <- setdiff(exept, names(data))
+  cols_to_exclude <- setdiff(exept, unused)
+
   tidyr::pivot_longer(
       data = data,
-      cols = -tidyselect::all_of(exept),
+      cols = -tidyselect::all_of(cols_to_exclude),
       names_to = c(name, ".value"),
       names_pattern = names_pattern
   )

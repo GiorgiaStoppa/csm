@@ -1,5 +1,6 @@
 dd <- tibble::tibble(
     id = c(rep("1", 2L), rep("2", 2L), rep("3", 2L)),
+    site = c(rep("AA", 4L), rep("BB", 2L)),
     fields = rep(c("demo and clinical", "discharge"), 3L),
     sex = c(
         "female", NA_character_,
@@ -58,7 +59,9 @@ study_data <- list("data" = dd, "meta_data" = md)
 test_that("`sheets_to_var` returns error if a list is not passed to `data`", {
 
     expect_error(
-        sheets_to_var(data = study_data, name = "sheets", exept = "id")
+        sheets_to_var(
+            data = study_data, name = "sheets", exept = c("id", "site")
+        )
     )
 
 })
@@ -66,7 +69,9 @@ test_that("`sheets_to_var` returns error if a list is not passed to `data`", {
 test_that("`sheets_to_var` eturns error if a character is not passed to `study_data`", {
 
     expect_error(
-        sheets_to_var(data = dd, name = study_data, exept = "id")
+        sheets_to_var(
+            data = dd, name = study_data, exept = c("id", "site")
+        )
     )
 
 })
@@ -81,13 +86,13 @@ test_that("`sheets_to_var` eturns error if a character is not passed to `exept`"
 
 test_that("`sheets_to_var` returns error if nothing is passed to `data`", {
 
-    expect_error(sheets_to_var(name = "sheets", exept = "id"))
+    expect_error(sheets_to_var(name = "sheets", exept = c("id", "site")))
 
 })
 
 test_that("`sheets_to_var` returns error if nothing is passed to `study_data`", {
 
-    expect_error(sheets_to_var(data = dd, exept = "id"))
+    expect_error(sheets_to_var(data = dd, exept = c("id", "site")))
 
 })
 
@@ -100,7 +105,9 @@ test_that("`sheets_to_var` returns error if nothing is passed to `exept`", {
 test_that("Class of `sheets_to_var` output is correct", {
 
     expect_is(
-        sheets_to_var(data = dd, name = "sheets", exept = "id"),
+        sheets_to_var(
+            data = dd, name = "sheets", exept = c("id", "site")
+        ),
         class = "data.frame"
     )
 
@@ -109,7 +116,7 @@ test_that("Class of `sheets_to_var` output is correct", {
 test_that("Class of `nest_tables` output is correct", {
 
     expect_is(
-        nest_tables(data = dd, id = "id"),
+        nest_tables(data = dd, redcap_info = c("id", "site")),
         class = "data.frame"
     )
 
@@ -118,7 +125,9 @@ test_that("Class of `nest_tables` output is correct", {
 test_that("`nest_tables` returns error if something different from a
           data.frame is passed to `data`", {
 
-    expect_error(nest_tables(data = study_data, id = "id"))
+    expect_error(
+        nest_tables(data = study_data, redcap_info = c("id", "site"))
+    )
 
 })
 
@@ -131,7 +140,7 @@ test_that("`nest_tables` returns error if something different from a
 
 test_that("`nest_tables` returns error if nothing is passed to `data`", {
 
-    expect_error(nest_tables(id = "id"))
+    expect_error(nest_tables(redcap_info = c("id", "site")))
 
 })
 
