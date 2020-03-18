@@ -7,9 +7,9 @@
 read_redcap(url, token)
 }
 \arguments{
-\item{url}{(character) a character string the specifies the url.}
+\item{url}{(character) a character string that specifies the url.}
 
-\item{token}{(character) a character string the specifies the token.}
+\item{token}{(character) a character string that specifies the token.}
 }
 \value{
 (list) a list with 2 data.frame. One data.frame contains the

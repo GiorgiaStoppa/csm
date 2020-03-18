@@ -3,9 +3,9 @@
 #' Import the data from REDCap repository into a data.frame format.
 #' API token and url are needed to retrieve the data.
 #'
-#' @param token (character) a character string the specifies the token.
+#' @param token (character) a character string that specifies the token.
 #'
-#' @param url (character) a character string the specifies the url.
+#' @param url (character) a character string that specifies the url.
 #'
 #' @return (list) a list with 2 data.frame. One data.frame contains the
 #'                data of the study, whereas the other contains three
