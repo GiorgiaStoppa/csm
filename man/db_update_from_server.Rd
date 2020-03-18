@@ -8,7 +8,7 @@ db_update_from_server(
   token,
   path_data = data_path(),
   redcap_info = c("record_id", "redcap_data_access_group"),
-  file_name = "tipnet.rds"
+  file_name = "tidy_data.rds"
 )
 }
 \arguments{

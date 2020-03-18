@@ -24,8 +24,16 @@ db_update_from_server <- function(
     token,
     path_data = data_path(),
     redcap_info = c("record_id", "redcap_data_access_group"),
-    file_name = "tipnet.rds"
+    file_name = "tidy_data.rds"
 ) {
+
+    assertive::assert_is_character(token)
+    assertive::assert_is_character(redcap_info)
+    assertive::assert_is_character(file_name)
+
+    if(stringr::str_detect(file_name, ".rds$", negate = TRUE)) {
+        usethis::ui_stop("The data must be stored in a '.rds' file.")
+    }
 
     file_path <- file.path(path_data, file_name)
 
@@ -33,24 +41,24 @@ db_update_from_server <- function(
     all_ok <- raw$data$success && raw$meta_data$success
 
     if (all_ok) {
-        meta <- tidy_extract(raw, "meta")
+        study_meta <- tidy_extract(raw, "meta")
 
-        study <- raw %>%
+        study_data <- raw %>%
             tidy_extract("data") %>%
             nest_tables(redcap_info = redcap_info) %>%
             dplyr::mutate(
                 tables = purrr::map2(
-                    .data$sheet, .data$tables, factorize_sheet,
-                    meta = meta
+                    .data$sheet, .data$tables, make_factors_sheet,
+                    meta = study_meta
                 )
             )
 
-        readr::write_rds(tipnet, path = file_path)
+        readr::write_rds(study_data, path = file_path)
 
         return(invisible(file_path))
 
     } else {
-        ui_warn("Connection error to REDCap (in server-start chunk).")
+        usethis::ui_warn("Connection error to REDCap (in server-start chunk).")
         return(invisible(file_path))
     }
 
