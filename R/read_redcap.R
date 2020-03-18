@@ -14,6 +14,8 @@
 #'                the form associated to each field and the labels
 #'                associated to each field
 #'
+#' @export
+#'
 #' @examples
 #'
 #' url     <- "https://bbmc.ouhsc.edu/redcap/api/"

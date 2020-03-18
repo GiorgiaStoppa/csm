@@ -14,6 +14,8 @@
 #'                     that are different from `values`. If no values a
 #'                     `NA_character_` is returned.
 #'
+#' @export
+#'
 #' @examples
 #'
 #' gender <- c("male", "female", "male", "male", "female", "x")

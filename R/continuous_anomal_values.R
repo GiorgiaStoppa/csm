@@ -15,6 +15,8 @@
 #'                   are not within the `range`. If no value is
 #'                   identified a `NA` is returned.
 #'
+#' @export
+#'
 #' @examples
 #'
 #' x <- rnorm(n = 10L, mean = 10, sd = 2)
