@@ -34,7 +34,8 @@ Imports:
     tidyselect (>= 1.0.0),
     REDCapR (>= 0.10.2),
     checkmate (>= 1.9.4),
-    usethis (>= 1.5.1)
+    usethis (>= 1.5.1),
+    fs (>= 1.3.2)
 Suggests: 
     covr (>= 3.4.0),
     roxygen2 (>= 7.0.2),
