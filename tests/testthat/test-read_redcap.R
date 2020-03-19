@@ -14,19 +14,13 @@ test_that("Class of output is correct", {
 
 test_that("Class of data is ok", {
 
-    data <- dd[["data"]]
-
-    data %>% expect_is("data.frame")
-    unique(names(data)) %>% expect_length(length(data))
+    expect_is(dd[["data"]], "list")
 
 })
 
 test_that("Class of meta_data is correct", {
 
-    data <- dd[["meta_data"]]
-
-    data %>% expect_is("data.frame")
-    unique(names(data)) %>% expect_length(length(data))
+    expect_is(dd[["meta_data"]], "list")
 
 })
 
@@ -61,18 +55,3 @@ test_that("Error if the url is not given", {
 
 })
 
-test_that("Check that meta_data columns names are correct", {
-
-    new_names <- c("validation_min", "validation_max")
-    old_names <- c("text_validation_min", "text_validation_max")
-
-    meta_data <- dd[["meta_data"]]
-
-    expect_true(
-        all(new_names %in% names(meta_data))
-    )
-
-    expect_false(
-        any(old_names %in% names(meta_data))
-    )
-})

@@ -36,17 +36,13 @@ read_redcap <- function(url, token) {
         batch_size = 1000L,
         guess_type = TRUE,
         verbose = FALSE
-    )$data
+    )
 
     # Store the metadata into a separate object
     meta_data <- REDCapR::redcap_metadata_read(
         redcap_uri = url, token = token,
         verbose = FALSE
-    )[["data"]] %>%
-        dplyr::rename(
-            validation_min = .data$text_validation_min,
-            validation_max = .data$text_validation_max
-        )
+    )
 
     list(
         "data" = df,
