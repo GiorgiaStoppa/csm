@@ -34,7 +34,7 @@ You can install the development version from
 
 ```{r, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("UBESP-DCTV/csm")
+remotes::install_github("UBESP-DCTV/csm")
 ```
 
 ## Feature request
@@ -55,6 +55,6 @@ contributing to this project, you agree to abide by its terms.
 ## Warnings
 The package is currently under active development. The functions are
 not stable yet and the users should consider their usage for 
-experimental purposes only. Right now, there is guarantee that
+experimental purposes only. Right now, there is no guarantee that
 the package will ever be stable.
 
