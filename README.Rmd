@@ -34,7 +34,7 @@ You can install the development version from
 
 ```{r, eval = FALSE}
 # install.packages("devtools")
-remotes::install_github("UBESP-DCTV/csm")
+devtools::install_github("UBESP-DCTV/csm")
 ```
 
 ## Feature request
