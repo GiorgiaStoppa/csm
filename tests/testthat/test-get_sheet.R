@@ -48,6 +48,7 @@ test_that("Error if 'field' is not a character", {
         get_sheet(
             x = nested_tab, sheet = "demo", field = c(8, 9)
         ),
+        class = "usethis_error",
         regexp = "If the field is not NULL, it must be a character"
     )
 
@@ -59,6 +60,7 @@ test_that("Error if 'field' is not a character", {
         get_sheet(
             x = nested_tab, sheet = "demo", field = c(8, 9)
         ),
+        class = "usethis_error",
         regexp = "If the field is not NULL, it must be a character"
     )
 
