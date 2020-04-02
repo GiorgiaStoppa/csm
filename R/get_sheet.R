@@ -17,9 +17,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'   tipnet <- read_rds(db_update_from_server())
-#'   tipnet %>% get_sheet("anagrafica")
-#'   tipnet %>% get_sheet("anagrafica", field = "anagrafica")
+#'   library(readr)
+#'
+#'   data <- read_rds(db_update_from_server())
+#'   data %>% get_sheet("demographic")
+#'   data %>% get_sheet("demographic", field = "demo and clinical")
 #'
 #' }
 get_sheet <- function(x, sheet, field = NULL) {
@@ -33,7 +35,7 @@ get_sheet <- function(x, sheet, field = NULL) {
         )
     }
 
-    where_sheet <- sheet == x[["sheet"]]
+    where_sheet <- sheet == x[["sheets"]]
     n_sheets <- sum(where_sheet)
 
     if (n_sheets == 0) usethis::ui_stop(
