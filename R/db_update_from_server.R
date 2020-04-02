@@ -23,7 +23,7 @@
 db_update_from_server <- function(
     token,
     path_data = data_path(),
-    redcap_info = c("record_id", "redcap_data_access_group"),
+    redcap_info = c("record_id", "center"),
     file_name = "tidy_data.rds"
 ) {
 
@@ -48,7 +48,7 @@ db_update_from_server <- function(
             nest_tables(redcap_info = redcap_info) %>%
             dplyr::mutate(
                 tables = purrr::map2(
-                    .data$sheet, .data$tables, make_factors_sheet,
+                    .data$sheets, .data$tables, make_factors_sheet,
                     meta = study_meta
                 )
             )

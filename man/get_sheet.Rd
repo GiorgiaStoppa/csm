@@ -27,9 +27,11 @@ associated to a given field.
 }
 \examples{
 \dontrun{
-  tipnet <- read_rds(db_update_from_server())
-  tipnet \%>\% get_sheet("anagrafica")
-  tipnet \%>\% get_sheet("anagrafica", field = "anagrafica")
+  library(readr)
+
+  data <- read_rds(db_update_from_server())
+  data \%>\% get_sheet("demographic")
+  data \%>\% get_sheet("demographic", field = "demo and clinical")
 
 }
 }
