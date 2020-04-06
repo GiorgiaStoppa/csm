@@ -23,12 +23,30 @@ each field.}
 (tibble) a tibble with two columns: one column must contains
 the names of the fields. The other column must
 contains the associated condition for missing data
-checking; if it is NA, then it means that no
-branching logic is associated to the field.
+checking.
 }
 \description{
 Create the conditions for missing data checking. If a variable has no
 branching logic and it is NA, then the information is missing. If a
 variable is missing and it has a branching logic, then it is missing
 only if it is missing and the branching logic is not satisfied.
+}
+\examples{
+\dontrun{
+
+ library(tibble)
+
+ meta_data <- tibble(
+   field_name = c("id", "sex", "diabetes", "iddm"),
+   sheet = c(rep("demo", 2L), rep("clinical", 2L)),
+   branching_logic = c(rep(NA_character_, 3L), "diabetes")
+ )
+
+ branching_logic(
+   meta_data = meta_data,
+   fields_names = "field_name",
+   branching_logic = "branching_logic"
+ )
+
+}
 }

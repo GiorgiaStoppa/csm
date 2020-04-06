@@ -50,9 +50,12 @@ branching_logic <- function(
     assertive::assert_is_character(fields_names)
     assertive::assert_is_character(branching_logic)
 
-    f_nms <- meta_data[[fields_names]] %>%
-        paste0(collapse = ")|(") %>%
-        paste("(", ., ")", sep = "")
+    f_nms <- paste(
+        "(",
+        paste0(meta_data[[fields_names]], collapse = ")|("),
+        ")",
+        sep = ""
+    )
 
     fields_names <- dplyr::enquo(fields_names)
     branching_logic <- dplyr::enquo(branching_logic)
@@ -60,7 +63,7 @@ branching_logic <- function(
     meta_data %>%
         dplyr::select(!! fields_names, !! branching_logic) %>%
         dplyr::mutate(
-           !! branching_logic := str_extract(
+           !! branching_logic := stringr::str_extract(
                .data$branching_logic, f_nms
            )
         ) %>%
