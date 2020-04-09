@@ -33,7 +33,7 @@ get_incomplete_sheets <- function(
     center <- redcap_info[2]
 
     # Get the names of the sheets
-    sheet_names <- nested_tables[["sheet"]]
+    sheet_names <- nested_tables[["sheets"]]
 
     # Iterate the function incomplete_sheet for all the sheets
     purrr::map_dfr(

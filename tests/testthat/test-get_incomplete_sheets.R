@@ -1,11 +1,11 @@
 
 nested_tab <- tibble::tibble(
-    field = c(rep("demo_clinical", 3L), rep("follow_up", 3L)),
-    sheet = c(
+    fields = c(rep("demo_clinical", 3L), rep("follow_up", 3L)),
+    sheets = c(
         "demo", "risk_factors", "clinical", "discharge",
         "month_1", "year_1"
     ),
-    table = purrr::map(
+    tables = purrr::map(
         .x = seq_len(6),
         ~ tibble::tibble(
             id = rep(glue::glue("id_{1:5}"), 2L),

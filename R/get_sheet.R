@@ -35,7 +35,7 @@ get_sheet <- function(x, sheet, field = NULL) {
         )
     }
 
-    where_sheet <- sheet == x[["sheet"]]
+    where_sheet <- sheet == x[["sheets"]]
     n_sheets <- sum(where_sheet)
 
     if (n_sheets == 0) usethis::ui_stop(
@@ -43,7 +43,7 @@ get_sheet <- function(x, sheet, field = NULL) {
     )
 
 
-    possible_fields <- x[["field"]][where_sheet]
+    possible_fields <- x[["fields"]][where_sheet]
 
     if (!is.null(field) && (!field %in% possible_fields)) {
         usethis::ui_stop("
@@ -62,8 +62,8 @@ get_sheet <- function(x, sheet, field = NULL) {
     sheet_row <- if (is.null(field)) {
         where_sheet
     } else {
-        where_sheet & (field == x[["field"]])
+        where_sheet & (field == x[["fields"]])
     }
 
-    x[["table"]][[which(sheet_row)]]
+    x[["tables"]][[which(sheet_row)]]
 }
