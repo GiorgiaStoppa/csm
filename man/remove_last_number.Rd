@@ -19,8 +19,12 @@ number.
 }
 \examples{
 
+\dontrun{
+
 a <- c("aa", "bb", "cc", "dd_1", "dd_2", "ff")
 
 remove_last_number(x = a)
+
+}
 
 }

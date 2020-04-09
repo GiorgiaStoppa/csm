@@ -23,10 +23,14 @@ more than one column, it remove the duplicated columns.
 }
 \examples{
 
+\dontrun{
+
 a <- tibble::tibble(
   variable = c("aa", "dd_1", "dd_2", "dd_3", "cc")
 )
 
 tidy_fields_names(data = a)
+
+}
 
 }

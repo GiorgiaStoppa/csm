@@ -20,17 +20,23 @@
 #' @return (chr) vector with the remaining elements (subset of the
 #'               target) after the checking has been performed
 #'
-#' @export
 #'
 #' @examples
-#' matteo <- c("c", "d", "f", "g", "h")
+#'
+#' \dontrun{
+#'
+#' #' matteo <- c("c", "d", "f", "g", "h")
 #' paolo <- c("a", "b", "c", "d", "f", "g", "h")
 #' stefano <- c("a", "c", "d", "f", "g", "h")
+#' marco <- c("f", "g")
 #' davide <- purrr::set_names(x = c("f", "g"), nm = c("a", "b"))
 #'
 #' exclude_absent(matteo, davide) # c("c", "d", "h")
 #' exclude_absent(paolo, davide)  # paolo
 #' exclude_absent(stefano, davide) # c("a", "c", "d", "f", "h")
+#' exclude_absent(marco, davide) # NA_character_
+#'
+#' }
 #'
 exclude_absent <- function(target, reference) {
 
@@ -41,6 +47,10 @@ exclude_absent <- function(target, reference) {
     usethis::ui_stop("'reference' must be a named vector")
   }
 
-  target[(!target %in% reference) | (target %in% reference[target])]
+  exc <- target[
+    (!target %in% reference) | (target %in% reference[target])
+  ]
+
+  if(length(exc) == 0) {NA_character_} else {exc}
 }
 

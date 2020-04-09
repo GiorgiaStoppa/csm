@@ -2,6 +2,7 @@
 matteo <- c("c", "d", "f", "g", "h")
 paolo  <- c("a", "b", "c", "d", "f", "g", "h")
 stefano <- c("a", "c", "d", "f", "g", "h")
+marco <- c("f", "g")
 davide <- purrr::set_names(x = c("f", "g"), nm = c("a", "b"))
 davide_un <- c("f", "g")
 
@@ -9,6 +10,13 @@ test_that("Remove elements with absent names", {
     expect_equal(
         exclude_absent(matteo, davide),
         c("c", "d", "h")
+    )
+})
+
+test_that("Expect `NA_character_` if all the elements are excluded", {
+    expect_equal(
+        exclude_absent(marco, davide),
+        NA_character_
     )
 })
 

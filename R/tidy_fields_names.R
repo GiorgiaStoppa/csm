@@ -11,15 +11,18 @@
 #'                                          that contains the names with
 #'                                          missing information without
 #'                                          duplicates
-#' @export
 #'
 #' @examples
+#'
+#' \dontrun{
 #'
 #' a <- tibble::tibble(
 #'   variable = c("aa", "dd_1", "dd_2", "dd_3", "cc")
 #' )
 #'
 #' tidy_fields_names(data = a)
+#'
+#' }
 #'
 
 tidy_fields_names <- function(data) {

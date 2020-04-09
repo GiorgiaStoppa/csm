@@ -32,13 +32,20 @@ Moreover, \code{\link{\%in\%}} takes as \link{FALSE} the presence of a \link{NA}
 (see \emph{Details} section of \code{\link{\%in\%}})
 }
 \examples{
-matteo <- c("c", "d", "f", "g", "h")
+
+\dontrun{
+
+#' matteo <- c("c", "d", "f", "g", "h")
 paolo <- c("a", "b", "c", "d", "f", "g", "h")
 stefano <- c("a", "c", "d", "f", "g", "h")
+marco <- c("f", "g")
 davide <- purrr::set_names(x = c("f", "g"), nm = c("a", "b"))
 
 exclude_absent(matteo, davide) # c("c", "d", "h")
 exclude_absent(paolo, davide)  # paolo
 exclude_absent(stefano, davide) # c("a", "c", "d", "f", "h")
+exclude_absent(marco, davide) # NA_character_
+
+}
 
 }

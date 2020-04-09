@@ -7,13 +7,16 @@
 #' @param x (chr) a character vector
 #'
 #' @return (chr) a character vector
-#' @export
 #'
 #' @examples
+#'
+#' \dontrun{
 #'
 #' a <- c("aa", "bb", "cc", "dd_1", "dd_2", "ff")
 #'
 #' remove_last_number(x = a)
+#'
+#' }
 #'
 
 remove_last_number <- function(x) {
