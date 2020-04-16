@@ -10,9 +10,8 @@
 #' @param values (character) a character vector with the allowed values
 #'                           for `x`.
 #'
-#' @return (character) a character vector with all the elements of `x`
-#'                     that are different from `values`. If no values a
-#'                     `NA_character_` is returned.
+#' @return (logical) a logical vector that identifies which elements
+#'                   of `x` has a value different from `values`.
 #'
 #' @export
 #'
@@ -20,16 +19,14 @@
 #'
 #' gender <- c("male", "female", "male", "male", "female", "x")
 #' values <- c("male", "female")
-#' csm:::categorical_anomal_values(x = gender, values = values)
+#' is_categorical_anomal(x = gender, values = values)
 #'
-categorical_anomal_values <- function(x, values) {
+is_categorical_anomal <- function(x, values) {
 
     assertive::assert_is_character(x)
     assertive::assert_is_character(values)
 
-    wrong_values <- !x %in% values
-
-    x[wrong_values]
+    !x %in% values
 
 }
 
