@@ -1,0 +1,101 @@
+#' Check the order of the dates is correct
+#'
+#' This function checks that the dates of a given patient are
+#' in the correct order. If a date is not as expected, e.g. a procedure
+#' date less than the birth date, the function will identify the
+#' patient.
+#'
+#' @param data (data.frame) a data.frame with two columns
+#'                          that identifies the center and the patient
+#'                          and the other columns that correspond to the
+#'                          dates.
+#' @param redcap_info (character) the names of the variables that
+#'                                identify the subject and the site
+#'                                where the subject was enrolled.
+#' @param dates (chr) Character vector with the names of the columns
+#'                    that corresponds to a date. The elements must
+#'                    have the same temporal order of the dates.
+#'
+#' @return a [tibble][tibble::tibble-package] tibble with the center
+#'         and the ID of the subjects who had an incorrect order of the
+#'         dates
+#' @export
+#'
+#' @examples
+#'
+#' library(lubridate)
+#'
+#' df <- tibble::tibble(
+#'     center = rep(c("center_1", "center_2"), each = 3L),
+#'     id = c(
+#'         "center_1_id_1", "center_1_id_2", "center_1_id_3",
+#'         "center_2_id_1", "center_2_id_2", "center_2_id_3"
+#'     ),
+#'     birth_date = as_date(
+#'         c(
+#'             "1940-01-03", "1978-01-03", "1945-04-07",
+#'             "1968-12-05", "1979-04-25", "1984-10-10"
+#'         )
+#'     ),
+#'     proc_date = as_date(
+#'         c(
+#'             "2016-02-05", "2017-09-09", "2017-04-10",
+#'             "2018-12-26", "2018-08-30", "2019-10-21"
+#'         )
+#'     ),
+#'     discharge_date = as_date(
+#'         c(
+#'             "2016-01-25", "2017-10-11", "2017-04-29",
+#'             "2019-02-01", "2018-09-12", "2019-11-03"
+#'         )
+#'     ),
+#'     follow_up_date = as_date(
+#'         c(
+#'             "2017-02-06", "2018-09-10", "2018-04-11",
+#'             "2019-12-27", "2018-04-25", "2020-11-04"
+#'         )
+#'     )
+#' )
+#'
+#' dates <- c(
+#'   "birth_date", "proc_date", "discharge_date", "follow_up_date"
+#' )
+#'
+#' check_dates_order(
+#'     df, dates, redcap_info = c("id", "center")
+#' )
+
+check_dates_order <- function(
+    data, dates, redcap_info = c("record_id", "center")
+) {
+
+    assertive::assert_is_data.frame(data)
+    assertive::assert_is_character(dates)
+    assertive::assert_is_character(redcap_info)
+
+    # Retrieve names of center and id columns
+    id <- redcap_info[1]
+    center <- redcap_info[2]
+
+    data %>%
+        dplyr::group_by(.data[[center]], .data[[id]]) %>%
+        tidyr::nest(tables = dplyr::contains(dates)) %>%
+        dplyr::mutate(
+            tables = purrr::map(
+                .x = .data[["tables"]],
+                ~ {
+                    qq <- .x %>%
+                        tidyr::pivot_longer(
+                            cols = dplyr::everything(),
+                            names_to = "variable",
+                            values_to = "date"
+                        ) %>%
+                        dplyr::arrange(.data[["date"]])
+
+                    qq$variable[qq$variable != dates]
+                }
+            )
+        ) %>%
+        tidyr::unnest(.data[["tables"]])
+
+}
