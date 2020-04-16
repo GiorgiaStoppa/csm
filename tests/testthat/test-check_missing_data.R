@@ -37,7 +37,7 @@ meta_data <- tibble::tibble(
     )
 )
 
-ck_miss <- check_missing(
+ck_miss <- check_missing_data(
     nested_tab, meta_data, "demo", "field_name", "branching_logic",
     redcap_info = c("id", "center")
 )

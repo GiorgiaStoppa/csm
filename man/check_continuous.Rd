@@ -2,31 +2,59 @@
 % Please edit documentation in R/check_continuous.R
 \name{check_continuous}
 \alias{check_continuous}
-\title{Check which continuous variable has an out-of-range value}
+\title{Returns the fields with anomal values in continuous variables
+for each patient}
 \usage{
-check_continuous(data, range)
+check_continuous(
+  nested_tables,
+  meta_data,
+  redcap_info = c("record_id", "center"),
+  tab,
+  fields_names,
+  range_low,
+  range_upp
+)
 }
 \arguments{
-\item{data}{(data.frame) a dataframe with the continuous variables
-for each patient.}
+\item{nested_tables}{(tibble) the output from \link{nest_tables}}
 
-\item{range}{(character) output of the function \code{extract_range}.}
+\item{meta_data}{(tibble) the output from \link{tidy_extract} when
+\code{type = 'meta'}}
+
+\item{redcap_info}{(character) the names of the variables that
+identify the subject and the site
+where the subject was enrolled.}
+
+\item{tab}{(character) the name of the sheet on which missing data
+check must be performed.}
+
+\item{fields_names}{(character) a character with the name of the
+column of \code{meta_data} that contains
+the names of fields.}
+
+\item{range_low}{(character) a character with the name of the column of
+\code{meta_data} that contains the lower
+bound of the range associated to each
+continuous variable.}
+
+\item{range_upp}{(character) a character with the name of the column of
+\code{meta_data} that contains the upper
+bound of the range associated to each
+continuous variable.}
 }
 \value{
-(character) a character vector with the names of the
-continuous variables that had an out-of-range
-value.
+\link[tibble:tibble-package]{tibble} a tibble that identifies the
+fields of continuous
+variables with anomal
+values
 }
 \description{
-For each patient enrolled in the study, the function checks which
-continuous variable assumes a value that it is not included in the
-range.
+The function returns the fields of continuous variables with anomal
+values for each patient in a given form.
 }
 \examples{
-
-range <- list("age" = c(18, 70), "hemoglobin" = c(6, 18))
-df <- tibble::tibble(age = 16, hemoglobin = 9)
-
-check_continuous(data = df, range = range)
+\dontrun{
+   check_continuous()
+}
 
 }

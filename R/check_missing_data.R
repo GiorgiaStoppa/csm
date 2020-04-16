@@ -27,13 +27,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'   nested <- readr::read_rds(db_update_from_server())
-#'
-#'   get_incomplete_sheets(nested, redcap_info = c("id", "center"))
+#'   check_missin_
 #' }
 #'
 
-check_missing <- function(
+check_missing_data <- function(
     nested_tables, meta_data, tab, fields_names,
     branching_logic, redcap_info = c("record_id", "center")
 ) {
@@ -75,6 +73,7 @@ check_missing <- function(
                 ~ get_missing_vars(data = .x)
             )
         ) %>%
-        tidyr::unnest(cols = .data$missing_vars)
+        tidyr::unnest(cols = .data$missing_vars) %>%
+        dplyr::ungroup()
 }
 
