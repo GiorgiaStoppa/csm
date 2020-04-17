@@ -1,9 +1,8 @@
 #' Check continuous out-of-range values
 #'
 #' Check if a continuous variable takes values that are outside the
-#' range defined by two numerical values. The function returns a
-#' numeric vector with the values of the variable that lie outside of
-#' the range.
+#' range defined by two numerical values. The function returns logical
+#' denoting which element of the vector is out of range.
 #'
 #' @param x (numeric) a numeric vector.
 #'
@@ -11,9 +10,8 @@
 #'                        minimum and the maximum allowed values for
 #'                        `x`.
 #'
-#' @return (numeric) a numeric vector with all the elements of `x` that
-#'                   are not within the `range`. If no value is
-#'                   identified a `NA` is returned.
+#' @return (logical) a logical vector that identifies which element is
+#'                   out of range.
 #'
 #' @export
 #'
@@ -21,9 +19,9 @@
 #'
 #' x <- rnorm(n = 10L, mean = 10, sd = 2)
 #' range   <- c(3, 12)
-#' csm:::continuous_anomal_values(x = x, range = range)
+#' is_continuous_anomal(x = x, range = range)
 #'
-continuous_anomal_values <- function(x, range) {
+is_continuous_anomal <- function(x, range) {
 
     assertive::assert_is_numeric(x)
     assertive::assert_is_numeric(range)
@@ -38,9 +36,6 @@ continuous_anomal_values <- function(x, range) {
         min_val <- aux
     }
 
-    out_of_range <- x < min_val | x > max_val
-
-    x[out_of_range]
-
+    x < min_val | x > max_val
 }
 
