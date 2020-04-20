@@ -1,3 +1,5 @@
+# csm (development version)
+* Added basic functions for data quality check
 * Fix `.travis.yml`
 
 # csm 0.0.0.9000
