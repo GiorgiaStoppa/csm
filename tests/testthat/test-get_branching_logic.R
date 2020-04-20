@@ -102,7 +102,8 @@ test_that("Check the output of the function is a character", {
             meta_data = meta_data,
             fields_names = "field_name",
             branching_logic = "branching_logic"
-        )
+        ),
+        class = "character"
     )
 
 })

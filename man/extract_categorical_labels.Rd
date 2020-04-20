@@ -31,7 +31,7 @@ categorical variables.
 \examples{
 md <- tibble::tibble(
     field_name = c("age", "sex", "hypertension", "diabetes"),
-    sheet = c("demo", "demo", "clinical", "clinica"),
+    sheet = c("demo", "demo", "clinical", "clinical"),
     fct_level = list(
         character(0), c("female", "male"), c("yes", "no"),
         c("yes", "no")

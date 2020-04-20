@@ -19,29 +19,37 @@ nested_tab <- tibble::tibble(
     )
 )
 
-inc_sheet <- incomplete_sheet(
-    nested_tables = nested_tab,
-    tab = "demo",
-    redcap_info = c("id", "center")
-)
-
 test_that("Check if the function returns a data.frame", {
     expect_is(
-        inc_sheet,
+        incomplete_sheet(
+            nested_tables = nested_tab,
+            tab = "demo",
+            redcap_info = c("id", "center")
+        ),
         class = "data.frame"
     )
 })
 
 test_that("Check the the function provided the patients with incomplete sheet", {
     expect_equal(
-        nrow(inc_sheet),
+        nrow(
+            incomplete_sheet(
+                nested_tables = nested_tab,
+                tab = "demo",
+                redcap_info = c("id", "center")
+            )
+        ),
         expected = 2
     )
 })
 
 test_that("Check the sheet column contains only the name of the sheet provided", {
     expect_equal(
-        inc_sheet$sheet,
+        incomplete_sheet(
+            nested_tables = nested_tab,
+            tab = "demo",
+            redcap_info = c("id", "center")
+        )$sheet,
         expected = c("demo", "demo")
     )
 })
