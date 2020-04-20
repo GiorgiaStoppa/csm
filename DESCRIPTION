@@ -35,7 +35,8 @@ Imports:
     REDCapR,
     checkmate,
     usethis,
-    fs
+    fs,
+    rmarkdown
 Suggests: 
     covr,
     roxygen2,
