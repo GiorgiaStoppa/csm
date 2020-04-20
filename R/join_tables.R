@@ -72,5 +72,6 @@ join_tables <- function(
 
     tab_list <- nested_tab_list[["tables"]]
 
-    plyr::join_all(tab_list, by = redcap_info, type = "left")
+    purrr::reduce(tab_list, dplyr::left_join, by = redcap_info)
+
 }
