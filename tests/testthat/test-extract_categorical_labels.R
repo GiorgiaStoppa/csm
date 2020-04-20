@@ -1,6 +1,6 @@
 md <- tibble::tibble(
     field_name = c("age", "sex", "hypertension", "diabetes"),
-    sheet = c("demo", "demo", "clinical", "clinica"),
+    sheet = c("demo", "demo", "clinical", "clinical"),
     fct_level = list(
         character(0), c("female", "male"), c("yes", "no"),
         c("yes", "no")
@@ -9,27 +9,33 @@ md <- tibble::tibble(
 
 mf <- tibble::tibble(
     field_name = c("age", "sex", "hypertension", "diabetes"),
-    sheet = c("demo", "demo", "clinical", "clinica"),
+    sheet = c("demo", "demo", "clinical", "clinical"),
     fct_level = c(3, 4, 5, 6)
 )
 
-tt <- extract_categorical_labels(md, "field_name", "fct_level")
-
 
 test_that("Check that the function returns a list", {
-    expect_is(tt, class = "list")
+    expect_is(
+        extract_categorical_labels(md, "field_name", "fct_level"),
+        class = "list"
+    )
 })
 
 test_that("Check that the names of the list are correct", {
     expect_equal(
-        names(tt), expected = c("sex", "hypertension", "diabetes")
+        names(extract_categorical_labels(md, "field_name", "fct_level")),
+        expected = c("sex", "hypertension", "diabetes")
     )
 })
 
 test_that("Check that the list doesn't contain elements that are not character", {
     expect_true(
         all(
-            purrr::map_lgl(.x = tt, ~ is.character(.x))
+            purrr::map_lgl(
+                .x = extract_categorical_labels(
+                    md, "field_name", "fct_level"
+                ), ~ is.character(.x)
+            )
         )
     )
 })
@@ -37,7 +43,12 @@ test_that("Check that the list doesn't contain elements that are not character",
 test_that("Check that the all the elements of the list do not have lenght 0", {
     expect_true(
         all(
-            purrr::map_lgl(.x = tt, ~ length(.x) != 0)
+            purrr::map_lgl(
+                .x = extract_categorical_labels(
+                    md, "field_name", "fct_level"
+                ),
+                ~ length(.x) != 0
+            )
         )
     )
 })

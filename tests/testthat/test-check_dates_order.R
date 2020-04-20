@@ -36,21 +36,20 @@ dates <- c(
     "birth_date", "proc_date", "discharge_date", "follow_up_date"
 )
 
-ck_dates <- check_dates_order(
-    df, dates, redcap_info = c("id", "center")
-)
-
-
 test_that("The function returns a dataframe", {
     expect_is(
-        ck_dates,
+        check_dates_order(
+            df, dates, redcap_info = c("id", "center")
+        ),
         class = "data.frame"
     )
 })
 
 test_that("Output is correct", {
     expect_equal(
-        ck_dates$tables,
+        check_dates_order(
+            df, dates, redcap_info = c("id", "center")
+        )$tables,
         expected = c(
             "discharge_date", "proc_date", "follow_up_date",
             "proc_date", "discharge_date"

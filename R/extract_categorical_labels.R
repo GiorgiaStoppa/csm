@@ -22,7 +22,7 @@
 #' @examples
 #' md <- tibble::tibble(
 #'     field_name = c("age", "sex", "hypertension", "diabetes"),
-#'     sheet = c("demo", "demo", "clinical", "clinica"),
+#'     sheet = c("demo", "demo", "clinical", "clinical"),
 #'     fct_level = list(
 #'         character(0), c("female", "male"), c("yes", "no"),
 #'         c("yes", "no")
@@ -56,7 +56,11 @@ extract_categorical_labels <- function(
 
     dd <- meta_data %>%
         dplyr::select(.data[[fields_names]], .data[[labels]]) %>%
-        dplyr::filter(stringr::str_starts(.data[[labels]], "c\\("))
+        dplyr::mutate(
+            ll = purrr::map_dbl(.x = .data[[labels]], ~ length(.))
+        ) %>%
+        dplyr::filter(.data[["ll"]] != 0) %>%
+        dplyr::select(-.data[["ll"]])
 
     dd[[labels]] %>%
         purrr::set_names(nm = dd[[fields_names]])

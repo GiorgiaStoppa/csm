@@ -14,12 +14,6 @@ meta_data <- tibble::tibble(
     )
 )
 
-br_logic <- get_branching_logic(
-    meta_data = meta_data,
-    fields_names = "field_name",
-    branching_logic = "branching_logic"
-)
-
 test_that("Error if 'meta_data' is not provided", {
 
     expect_error(
@@ -103,19 +97,41 @@ test_that("Error if 'fields_names' is not a character", {
 
 test_that("Check the output of the function is a character", {
 
-    expect_is(br_logic, class = "character")
+    expect_is(
+        get_branching_logic(
+            meta_data = meta_data,
+            fields_names = "field_name",
+            branching_logic = "branching_logic"
+        )
+    )
 
 })
 
 test_that("Check the output of the function is named character", {
 
-    expect_named(br_logic)
+    expect_named(
+        get_branching_logic(
+            meta_data = meta_data,
+            fields_names = "field_name",
+            branching_logic = "branching_logic"
+        )
+    )
 
 })
 
 
 test_that("Check 'branching_logic' has no NA", {
 
-    expect_false(any(is.na(br_logic)))
+    expect_false(
+        any(
+            is.na(
+                get_branching_logic(
+                    meta_data = meta_data,
+                    fields_names = "field_name",
+                    branching_logic = "branching_logic"
+                )
+            )
+        )
+    )
 
 })

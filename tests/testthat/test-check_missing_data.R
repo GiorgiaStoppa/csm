@@ -37,28 +37,34 @@ meta_data <- tibble::tibble(
     )
 )
 
-ck_miss <- check_missing_data(
-    nested_tab, meta_data, "demo", "field_name", "branching_logic",
-    redcap_info = c("id", "center")
-)
-
 test_that("Check if the function returns a data.frame", {
     expect_is(
-        ck_miss,
+        check_missing_data(
+            nested_tab, meta_data, "demo", "field_name",
+            "branching_logic", redcap_info = c("id", "center")
+        ),
         class = "data.frame"
     )
 })
 
 test_that("Check the function returns the right number missing fields", {
     expect_equal(
-        nrow(ck_miss),
+        nrow(
+            check_missing_data(
+                nested_tab, meta_data, "demo", "field_name",
+                "branching_logic", redcap_info = c("id", "center")
+            )
+        ),
         expected = 6L
     )
 })
 
 test_that("Check the function returns the right missing fields", {
     expect_equal(
-        ck_miss$missing_vars,
+        check_missing_data(
+            nested_tab, meta_data, "demo", "field_name",
+            "branching_logic", redcap_info = c("id", "center")
+        )$missing_vars,
         expected = c("z", "z", "x", "x", "y", "z")
     )
 })

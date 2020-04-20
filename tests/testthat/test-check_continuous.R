@@ -29,26 +29,32 @@ meta_data <- tibble::tibble(
     max = rep(c("0.5", "0.5", "0.8"), 6L)
 )
 
-ck_cont <- check_continuous(
-    nested_tables = nested_tab,
-    meta_data = meta_data,
-    redcap_info = c("id", "center"),
-    tab = "demo",
-    fields_names = "field_name",
-    range_low = "min",
-    range_upp = "max"
-)
-
 test_that("Check if the function returns a data.frame", {
     expect_is(
-        ck_cont,
+        check_continuous(
+            nested_tables = nested_tab,
+            meta_data = meta_data,
+            redcap_info = c("id", "center"),
+            tab = "demo",
+            fields_names = "field_name",
+            range_low = "min",
+            range_upp = "max"
+        ),
         class = "data.frame"
     )
 })
 
 test_that("Check the correct variables are returned", {
     expect_equal(
-        ck_cont$variables,
+        check_continuous(
+            nested_tables = nested_tab,
+            meta_data = meta_data,
+            redcap_info = c("id", "center"),
+            tab = "demo",
+            fields_names = "field_name",
+            range_low = "min",
+            range_upp = "max"
+        )$variables,
         expected = c("x", "y", "y")
     )
 })
@@ -71,19 +77,19 @@ nested_tab <- tibble::tibble(
     )
 )
 
-ck_cont <- check_continuous(
-    nested_tables = nested_tab,
-    meta_data = meta_data,
-    redcap_info = c("id", "center"),
-    tab = "demo",
-    fields_names = "field_name",
-    range_low = "min",
-    range_upp = "max"
-)
-
 test_that("Check all the values are within the range", {
     expect_equal(
-        nrow(ck_cont),
+        nrow(
+            check_continuous(
+                nested_tables = nested_tab,
+                meta_data = meta_data,
+                redcap_info = c("id", "center"),
+                tab = "demo",
+                fields_names = "field_name",
+                range_low = "min",
+                range_upp = "max"
+            )
+        ),
         expected = 0
     )
 })

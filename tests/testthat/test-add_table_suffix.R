@@ -13,12 +13,10 @@ df <- tibble::tibble(
 suffix <- "demo"
 except <- c("id", "center")
 
-add <- add_table_suffix(df, suffix, except)
-
 test_that("Class of output is correct", {
 
     expect_is(
-        add,
+        add_table_suffix(df, suffix, except),
         class = "data.frame"
     )
 
@@ -27,7 +25,7 @@ test_that("Class of output is correct", {
 test_that("Column names are correct", {
 
     expect_equal(
-        names(add),
+        names(add_table_suffix(df, suffix, except)),
         expected = c("center", "id", "age_demo", "sex_demo")
     )
 
