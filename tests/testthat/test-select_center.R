@@ -19,39 +19,42 @@ nested_tab <- tibble::tibble(
 test_that("Class of output is correct", {
 
     expect_is(
-        join_tables(nested_tab, c("id", "center")),
+        select_center(
+            nested_tab, center_id = "center", center_label = "center_2"
+        ),
         class = "data.frame"
     )
 
 })
 
-test_that("The number of columns is correct", {
+test_that("Right number of rows in each table", {
 
     expect_equal(
-        ncol(join_tables(nested_tab, c("id", "center"))),
-        expected = 2 + (6 * 3)
+        purrr::map_dbl(
+            .x = select_center(
+                nested_tab, center_id = "center",
+                center_label = "center_2"
+            )$tables,
+            ~ nrow(.x)
+        ),
+        expected = rep(5, 6L)
     )
 
 })
 
-test_that("First two columns are 'id' and 'center'", {
+test_that("Only the data from 'center_2' are returned", {
 
     expect_equal(
-        names(join_tables(nested_tab, c("id", "center")))[1:2],
-        expected = c("id", "center")
+        purrr::map_dfr(
+            .x = select_center(
+                nested_tab, center_id = "center",
+                center_label = "center_2"
+            )$tables,
+            ~ .x %>%
+                dplyr::select(.data[["center"]])
+        ),
+        expected = tibble::tibble(center = rep("center_2", 6 * 5))
     )
 
 })
-
-test_that("Columns names are unique", {
-
-    expect_equal(
-        length(names(join_tables(nested_tab, c("id", "center")))),
-        expected = length(
-            unique(names(join_tables(nested_tab, c("id", "center"))))
-        )
-    )
-
-})
-
 
