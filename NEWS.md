@@ -1,4 +1,9 @@
 # csm (development version)
+* Added `assign_labels`: function that switches the elements of a 
+  character vector with the labels associated to each element of the
+  vector.
+* Added `get_sheet_labels`: function that returns the labels associated
+  to the fields of a sheet.
 * Added `rmarkdown` as imports.
 * `render_report`: function that automatically renders reports for 
   more than one center involved in the study.
