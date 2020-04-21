@@ -3,7 +3,8 @@
 #' The function retrieves a data.frame with the data of a sheet
 #' associated to a given field.
 #'
-#' @param x (tbl_df) output from [db_update_from_server]
+#' @param x (tbl_df) output from [db_update_from_server] or
+#'                   [nest_tables].
 #' @param sheet (chr) name of sheet to get the data from
 #' @param field (chr, default = NULL) if not NULL, provide the name of
 #'   field containing the required sheet. If NULL, only one field
