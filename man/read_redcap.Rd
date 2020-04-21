@@ -27,6 +27,6 @@ API token and url are needed to retrieve the data.
 
 url     <- "https://bbmc.ouhsc.edu/redcap/api/"
 token   <- "9A81268476645C4E5F03428B8AC3AA7B"
-csm:::read_redcap(url = url, token = token)
+read_redcap(url = url, token = token)
 
 }
