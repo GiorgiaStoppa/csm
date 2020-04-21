@@ -1,10 +1,10 @@
 # csm (development version)
-* Added basic functions for data quality check
-* `select_center`: function to select a center from the output given by
-  `nest_tables`.
+* Added `rmarkdown` as imports.
 * `render_report`: function that automatically renders reports for 
   more than one center involved in the study.
-* Added `rmarkdown` as imports.
+* `select_center`: function to select a center from the output given by
+  `nest_tables`.
+* Added basic functions for data quality check
 * Fix `.travis.yml`
 
 # csm 0.0.0.9000
