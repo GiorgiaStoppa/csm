@@ -65,13 +65,15 @@ join_tables <- function(
         dplyr::mutate(
             tables = purrr::map2(
                 .x = .data[["tables"]], .y = .data[["suffix"]],
-                ~ janitor::remove_empty(.x, c("cols", "rows")) %>%
-                    add_table_suffix(suffix = .y, except = redcap_info)
+                ~ add_table_suffix(
+                    data = .x, suffix = .y, except = redcap_info
+                )
             )
         )
 
     tab_list <- nested_tab_list[["tables"]]
 
-    purrr::reduce(tab_list, dplyr::left_join, by = redcap_info)
+    purrr::reduce(tab_list, dplyr::left_join, by = redcap_info) %>%
+        janitor::remove_empty(c("cols", "rows"))
 
 }
