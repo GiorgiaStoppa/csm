@@ -25,28 +25,6 @@ test_that("Error if the template is not an '.Rmd'", {
 
 })
 
-center_labels <- c("Center 1", "Center 2", "Center 3")
-path_template <- c("report/template.Rmd")
-file_name <- "tidy_data.rrr"
-
-test_that("Error if 'file_name' does not have a .rds format", {
-
-    expect_error(
-        render_report(
-            token = token,
-            path_data = path_data,
-            redcap_info = redcap_info,
-            file_name = file_name,
-            center_names = center_names,
-            center_labels = center_labels,
-            path_template = path_template
-        ),
-        class = "usethis_error",
-        regexp =  "The data must be stored in a '.rds' file."
-    )
-
-})
-
 path_template <- c("report/template.rda")
 file_name <- "tidy_data.rds"
 

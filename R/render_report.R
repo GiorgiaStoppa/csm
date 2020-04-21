@@ -90,18 +90,22 @@ render_report <- function(
     id_pat <- redcap_info[1]
     id_center <- redcap_info[2]
 
-    # Automatically update ROLEX db ------------------------------------
-    invisible(csm::db_update_from_server(
-        token = token,
-        path_data = path_data,
-        redcap_info = redcap_info,
-        file_name = file_name
-    ))
+    # # Automatically update ROLEX db ----------------------------------
+    # invisible(csm::db_update_from_server(
+    #   token = token,
+    #   path_data = path_data,
+    #   redcap_info = redcap_info,
+    #   file_name = file_name
+    # ))
+    #
+    # up_db <- readr::read_rds(here::here(path_data, file_name))
 
-    up_db <- readr::read_rds(here::here(path_data, file_name))
-
-    # Get the meta data ------------------------------------------------
+    # Get the nested data and meta-data --------------------------------
     dd <- read_redcap(url = study_redcap_url(), token = token)
+
+    up_db <- tidy_extract(dd, "data") %>%
+        nest_tables(redcap_info = redcap_info)
+
     md <- tidy_extract(dd, "meta")
 
     # Create a nested dataframe for each center ------------------------
