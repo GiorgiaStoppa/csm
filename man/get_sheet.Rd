@@ -7,7 +7,8 @@
 get_sheet(x, sheet, field = NULL)
 }
 \arguments{
-\item{x}{(tbl_df) output from \link{db_update_from_server}}
+\item{x}{(tbl_df) output from \link{db_update_from_server} or
+\link{nest_tables}.}
 
 \item{sheet}{(chr) name of sheet to get the data from}
 
