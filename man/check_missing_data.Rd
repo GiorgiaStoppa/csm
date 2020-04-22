@@ -8,6 +8,7 @@ check_missing_data(
   nested_tables,
   meta_data,
   tab,
+  field = NULL,
   fields_names,
   branching_logic,
   redcap_info = c("record_id", "center")
@@ -21,6 +22,13 @@ check_missing_data(
 
 \item{tab}{(character) the name of the sheet on which missing data
 check must be performed.}
+
+\item{field}{(chr, default = NULL) if not NULL, provide the name of
+field containing the required sheet. If NULL, only one field
+containing the required sheet is supposed to be present; that
+field is used. If more than one field with the required sheet
+exists, and field is NULL, an error is thrown, suggesting the
+possible fields to consider.}
 
 \item{fields_names}{(character) a character with the name of the
 column of \code{meta_data} that contains
@@ -84,7 +92,7 @@ meta_data <- tibble::tibble(
 )
 
 check_missing_data(
-  nested_tab, meta_data, "demo", "field_name",
+  nested_tab, meta_data, "demo", "demo_clinical", "field_name",
   "branching_logic", redcap_info = c("id", "center")
 )
 

@@ -40,7 +40,7 @@ meta_data <- tibble::tibble(
 test_that("Check if the function returns a data.frame", {
     expect_is(
         check_missing_data(
-            nested_tab, meta_data, "demo", "field_name",
+            nested_tab, meta_data, "demo", "demo_clinical", "field_name",
             "branching_logic", redcap_info = c("id", "center")
         ),
         class = "data.frame"
@@ -51,7 +51,7 @@ test_that("Check the function returns the right number missing fields", {
     expect_equal(
         nrow(
             check_missing_data(
-                nested_tab, meta_data, "demo", "field_name",
+                nested_tab, meta_data, "demo", "demo_clinical", "field_name",
                 "branching_logic", redcap_info = c("id", "center")
             )
         ),
@@ -62,7 +62,7 @@ test_that("Check the function returns the right number missing fields", {
 test_that("Check the function returns the right missing fields", {
     expect_equal(
         check_missing_data(
-            nested_tab, meta_data, "demo", "field_name",
+            nested_tab, meta_data, "demo", "demo_clinical", "field_name",
             "branching_logic", redcap_info = c("id", "center")
         )$missing_vars,
         expected = c("z", "z", "x", "x", "y", "z")

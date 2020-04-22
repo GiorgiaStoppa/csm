@@ -8,6 +8,12 @@
 #'                          `type = 'meta'`
 #' @param tab (character) the name of the sheet on which missing data
 #'                        check must be performed.
+#' @param field (chr, default = NULL) if not NULL, provide the name of
+#'   field containing the required sheet. If NULL, only one field
+#'   containing the required sheet is supposed to be present; that
+#'   field is used. If more than one field with the required sheet
+#'   exists, and field is NULL, an error is thrown, suggesting the
+#'   possible fields to consider.
 #' @param fields_names (character) a character with the name of the
 #'                                column of `meta_data` that contains
 #'                                the names of fields.
@@ -65,14 +71,14 @@
 #' )
 #'
 #' check_missing_data(
-#'   nested_tab, meta_data, "demo", "field_name",
+#'   nested_tab, meta_data, "demo", "demo_clinical", "field_name",
 #'   "branching_logic", redcap_info = c("id", "center")
 #' )
 #'
 #'
 
 check_missing_data <- function(
-    nested_tables, meta_data, tab, fields_names,
+    nested_tables, meta_data, tab, field = NULL, fields_names,
     branching_logic, redcap_info = c("record_id", "center")
 ) {
 
@@ -87,7 +93,7 @@ check_missing_data <- function(
     center <- redcap_info[2]
 
     # Select the sheet on which missing data checking is performed
-    dd <- get_sheet(nested_tables, sheet = tab)
+    dd <- get_sheet(nested_tables, sheet = tab, field = field)
 
     # Select fields on which missing data checking must be performed
     cols_br <- meta_data %>%
