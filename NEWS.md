@@ -1,10 +1,12 @@
 # csm (development version)
-* Added `assign_labels`: function that switches the elements of a 
+* `get_missing_vars_by`: function that identifies the missing fields
+  associated to each value of one or more grouping variables.
+* `assign_labels`: function that switches the elements of a 
   character vector with the labels associated to each element of the
   vector.
-* Added `get_sheet_labels`: function that returns the labels associated
+* `get_sheet_labels`: function that returns the labels associated
   to the fields of a sheet.
-* Added `rmarkdown` as imports.
+* `rmarkdown` as imports.
 * `render_report`: function that automatically renders reports for 
   more than one center involved in the study.
 * `select_center`: function to select a center from the output given by
