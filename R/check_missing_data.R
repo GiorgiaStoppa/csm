@@ -103,7 +103,7 @@ check_missing_data <- function(
         dplyr::select(
             .data[[center]],
             .data[[id]],
-            dplyr::contains(cols_br)
+            tidyselect::any_of(cols_br)
         ) %>%
         dplyr::group_by(.data[[center]], .data[[id]]) %>%
         tidyr::nest(missing_vars = -c(!! enquo(center), !! enquo(id))) %>%
@@ -116,4 +116,3 @@ check_missing_data <- function(
         tidyr::unnest(cols = .data$missing_vars) %>%
         dplyr::ungroup()
 }
-
