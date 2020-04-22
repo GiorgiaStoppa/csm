@@ -11,7 +11,7 @@
 #' @param fields_names (character) a character with the name of the
 #'                                column of `meta_data` that contains
 #'                                the names of fields.
-#' @param branching_logic (character)) a character with the name of the
+#' @param branching_logic (character) a character with the name of the
 #'                                     column of `meta_data` that the
 #'                                     branching logic associated to
 #'                                     each field.
@@ -27,7 +27,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   check_missin_
+#'   check_missing_data
 #' }
 #'
 
