@@ -26,7 +26,7 @@ check must be performed.}
 column of \code{meta_data} that contains
 the names of fields.}
 
-\item{branching_logic}{(character)) a character with the name of the
+\item{branching_logic}{(character) a character with the name of the
 column of \code{meta_data} that the
 branching logic associated to
 each field.}
@@ -45,8 +45,48 @@ The function returns the fields that are missing for each patient
 in a given form.
 }
 \examples{
-\dontrun{
-  check_missin_
-}
+nested_tab <- tibble::tibble(
+    fields = c(rep("demo_clinical", 3L), rep("follow_up", 3L)),
+    sheets = c(
+        "demo", "risk_factors", "clinical", "discharge",
+        "month_1", "year_1"
+    ),
+    tables = purrr::map(
+        .x = seq_len(6),
+        ~ tibble::tibble(
+            id = rep(glue::glue("id_{1:5}"), 2L),
+            center = rep(c("center_1", "center_2"), each = 5L),
+            x = c(runif(8), rep(NA, 2L)),
+            y = c(runif(9), NA),
+            z = c(
+                "no", "no", "yes", NA_character_, NA_character_,
+                "no", "yes", "yes", "no", NA_character_
+            )
+        )
+    )
+)
+
+meta_data <- tibble::tibble(
+    field_name = rep(c("x", "y", "z"), 6L),
+    sheet = rep(
+        c(
+            "demo", "risk_factors", "clinical", "discharge",
+            "month_1", "year_1"
+        ), each = 3L
+    ),
+    branching_logic = rep(
+        c(
+            NA_character_, NA_character_, NA_character_,
+            NA_character_, "x", NA_character_,
+            "z", NA_character_, NA_character_
+        ), 2L
+    )
+)
+
+check_missing_data(
+  nested_tab, meta_data, "demo", "field_name",
+  "branching_logic", redcap_info = c("id", "center")
+)
+
 
 }
