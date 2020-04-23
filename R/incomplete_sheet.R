@@ -5,6 +5,8 @@
 #'
 #' @param nested_tables (tibble) the output from [nest_tables]
 #' @param tab (chr) the name of the sheet targeted by the check
+#' @param field (chr) the name of the field which the targeted sheet
+#'                    belongs to.
 #' @param redcap_info (character) the names of the variables that
 #'                                identify the subject and the site
 #'                                where the subject was enrolled.
@@ -20,12 +22,14 @@
 #'   nested <- readr::read_rds(db_update_from_server())
 #'
 #'   incomplete_sheet(
-#'     nested, "demographics", redcap_info = c("id", "center")
+#'     nested, "demographics", "demographics and clinical",
+#'     redcap_info = c("id", "center")
 #'   )
 #' }
 #'
+
 incomplete_sheet <- function(
-    nested_tables, tab, redcap_info = c("record_id", "center")
+    nested_tables, tab, field, redcap_info = c("record_id", "center")
 ) {
 
     assertive::assert_is_data.frame(nested_tables)
@@ -37,7 +41,7 @@ incomplete_sheet <- function(
     center <- redcap_info[2]
 
     # Retrieve the patients with incomplete form
-    get_sheet(nested_tables, sheet = tab) %>%
+    get_sheet(nested_tables, sheet = tab, field = field) %>%
         dplyr::select(
             .data[[center]], .data[[id]], .data[["complete"]]
         ) %>%

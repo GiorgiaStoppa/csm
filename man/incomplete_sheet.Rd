@@ -4,12 +4,20 @@
 \alias{incomplete_sheet}
 \title{Return the patients with the incomplete (or unverified) sheet}
 \usage{
-incomplete_sheet(nested_tables, tab, redcap_info = c("record_id", "center"))
+incomplete_sheet(
+  nested_tables,
+  tab,
+  field,
+  redcap_info = c("record_id", "center")
+)
 }
 \arguments{
 \item{nested_tables}{(tibble) the output from \link{nest_tables}}
 
 \item{tab}{(chr) the name of the sheet targeted by the check}
+
+\item{field}{(chr) the name of the field which the targeted sheet
+belongs to.}
 
 \item{redcap_info}{(character) the names of the variables that
 identify the subject and the site
@@ -29,7 +37,8 @@ incomplete or unverified.
   nested <- readr::read_rds(db_update_from_server())
 
   incomplete_sheet(
-    nested, "demographics", redcap_info = c("id", "center")
+    nested, "demographics", "demographics and clinical",
+    redcap_info = c("id", "center")
   )
 }
 

@@ -24,6 +24,7 @@ test_that("Check if the function returns a data.frame", {
         incomplete_sheet(
             nested_tables = nested_tab,
             tab = "demo",
+            field = "demo_clinical",
             redcap_info = c("id", "center")
         ),
         class = "data.frame"
@@ -36,6 +37,7 @@ test_that("Check the the function provided the patients with incomplete sheet", 
             incomplete_sheet(
                 nested_tables = nested_tab,
                 tab = "demo",
+                field = "demo_clinical",
                 redcap_info = c("id", "center")
             )
         ),
@@ -48,6 +50,7 @@ test_that("Check the sheet column contains only the name of the sheet provided",
         incomplete_sheet(
             nested_tables = nested_tab,
             tab = "demo",
+            field = "demo_clinical",
             redcap_info = c("id", "center")
         )$sheet,
         expected = c("demo", "demo")

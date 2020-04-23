@@ -21,6 +21,7 @@
 #'   get_incomplete_sheets(nested, redcap_info = c("id", "center"))
 #' }
 #'
+
 get_incomplete_sheets <- function(
     nested_tables, redcap_info = c("record_id", "center")
 ) {
@@ -34,12 +35,13 @@ get_incomplete_sheets <- function(
 
     # Get the names of the sheets
     sheet_names <- nested_tables[["sheets"]]
+    field_names <- nested_tables[["fields"]]
 
     # Iterate the function incomplete_sheet for all the sheets
-    purrr::map_dfr(
-        .x = sheet_names,
+    purrr::map2_dfr(
+        .x = sheet_names, .y = field_names,
         ~ incomplete_sheet(
-            nested_tables, tab = .x, redcap_info
+            nested_tables, tab = .x, field = .y, redcap_info
         )
     )
 }
