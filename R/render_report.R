@@ -131,7 +131,8 @@ render_report <- function(
                         input = here::here(path_template),
                         output_file = glue::glue(
                             "{.y}.html"
-                        )
+                        ),
+                        quiet = TRUE
                     )
 
                     progress_bar$tick()$print()
@@ -155,7 +156,8 @@ render_report <- function(
                         input = here::here(path_template),
                         output_file = glue::glue(
                             "{.y}.html"
-                        )
+                        ),
+                        quiet = TRUE
                     )
 
                 }
