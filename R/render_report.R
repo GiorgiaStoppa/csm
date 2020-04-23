@@ -31,6 +31,10 @@
 #'                            file containing the report.
 #' @param path_template (chr) the path and the name of the files that
 #'                            contains the template for the report.
+#' @param pb (lgl) a logical that indicates if a progress bar should
+#'                 be displayed. Default is FALSE.
+#' @param ... additional inputs that must be passed to
+#'            [render][rmarkdown::render].
 #'
 #' @details The function aims to automate the implementation of
 #'          data quality report for each center involved in the study.
@@ -63,7 +67,9 @@ render_report <- function(
     file_name = "tidy_data.rds",
     center_names,
     center_labels,
-    path_template
+    path_template,
+    pb = FALSE,
+    ...
 ) {
 
     assertive::assert_is_character(token)
@@ -73,6 +79,7 @@ render_report <- function(
     assertive::assert_is_character(center_labels)
     assertive::assert_is_character(center_names)
     assertive::assert_is_character(path_template)
+    assertive::assert_is_logical(pb)
 
     if(length(center_names) != length(center_labels)) {
         usethis::ui_stop(
@@ -89,16 +96,6 @@ render_report <- function(
     # Retrive id of patients and centers -------------------------------
     id_pat <- redcap_info[1]
     id_center <- redcap_info[2]
-
-    # # Automatically update ROLEX db ----------------------------------
-    # invisible(csm::db_update_from_server(
-    #   token = token,
-    #   path_data = path_data,
-    #   redcap_info = redcap_info,
-    #   file_name = file_name
-    # ))
-    #
-    # up_db <- readr::read_rds(here::here(path_data, file_name))
 
     # Get the nested data and meta-data --------------------------------
     dd <- read_redcap(url = study_redcap_url(), token = token)
@@ -117,23 +114,53 @@ render_report <- function(
         purrr::set_names(nm = center_labels)
 
     # Render one html for each center ----------------------------------
-    invisible(
-        purrr::imap(
-            .x = nested_list,
-            ~ {
+    if (pb) {
 
-                db <- .x
+        progress_bar <- dplyr::progress_estimated(length(nested_list))
 
-                meta_data <- md
+        invisible(
+            purrr::imap(
+                .x = nested_list,
+                ~ {
 
-                rmarkdown::render(
-                    input = here::here(path_template),
-                    output_file = glue::glue(
-                        "{.y}.html"
+                    db <- .x
+
+                    meta_data <- md
+
+                    rmarkdown::render(
+                        input = here::here(path_template),
+                        output_file = glue::glue(
+                            "{.y}.html"
+                        )
                     )
-                )
 
-            }
+                    progress_bar$tick()$print()
+
+                }
+            )
         )
-    )
+
+    } else {
+
+        invisible(
+            purrr::imap(
+                .x = nested_list,
+                ~ {
+
+                    db <- .x
+
+                    meta_data <- md
+
+                    rmarkdown::render(
+                        input = here::here(path_template),
+                        output_file = glue::glue(
+                            "{.y}.html"
+                        )
+                    )
+
+                }
+            )
+        )
+
+    }
 }

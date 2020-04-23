@@ -11,7 +11,9 @@ render_report(
   file_name = "tidy_data.rds",
   center_names,
   center_labels,
-  path_template
+  path_template,
+  pb = FALSE,
+  ...
 )
 }
 \arguments{
@@ -44,6 +46,12 @@ file containing the report.}
 
 \item{path_template}{(chr) the path and the name of the files that
 contains the template for the report.}
+
+\item{pb}{(lgl) a logical that indicates if a progress bar should
+be displayed. Default is FALSE.}
+
+\item{...}{additional inputs that must be passed to
+\link[rmarkdown:render]{render}.}
 }
 \description{
 The function renders a report for the data quality monitoring for
