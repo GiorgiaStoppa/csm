@@ -64,23 +64,37 @@ check_continuous <- function(
     # Retrieve continuous range
     range <- extract_range(md_dd, fields_names, range_low, range_upp)
 
-    # Check categorical
-    dd %>%
-        dplyr::select(
-            dplyr::contains(center),
-            dplyr::contains(id),
-            dplyr::contains(names(range))
-        ) %>%
-        dplyr::group_by(.data[[id]], .data[[center]]) %>%
-        tidyr::nest(variables = dplyr::contains(names(range))) %>%
-        dplyr::mutate(
-            variables = purrr::map(
-                .x = .data[["variables"]],
-                ~ which_out_range(data = .x, range = range)
-            )
-        ) %>%
-        tidyr::unnest(cols = .data[["variables"]]) %>%
-        dplyr::ungroup()
+    if (length(range) == 0) {
 
+        tibble::tibble(
+            center = character(),
+            pat_id = character(),
+            variables = character()
+        ) %>%
+            dplyr::rename_at(
+                dplyr::vars(.data[["pat_id"]]),
+                ~ stringr::str_replace(string = ., "pat_id", id)
+            )
+
+    } else {
+
+        # Check categorical
+        dd %>%
+            dplyr::select(
+                dplyr::contains(center),
+                dplyr::contains(id),
+                dplyr::contains(names(range))
+            ) %>%
+            dplyr::group_by(.data[[id]], .data[[center]]) %>%
+            tidyr::nest(variables = dplyr::contains(names(range))) %>%
+            dplyr::mutate(
+                variables = purrr::map(
+                    .x = .data[["variables"]],
+                    ~ which_out_range(data = .x, range = range)
+                )
+            ) %>%
+            tidyr::unnest(cols = .data[["variables"]]) %>%
+            dplyr::ungroup()
+    }
 }
 
