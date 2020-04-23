@@ -97,6 +97,7 @@ check_dates_order <- function(
             )
         ) %>%
         tidyr::unnest(.data[["tables"]]) %>%
-        dplyr::filter(!is.na(.data[["tables"]]))
+        dplyr::filter(!is.na(.data[["tables"]])) %>%
+        dplyr::ungroup()
 
 }
