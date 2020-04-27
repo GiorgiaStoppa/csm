@@ -59,7 +59,7 @@ check_continuous <- function(
 
     # Returns only the meta-data to the associated sheet
     md_dd <- meta_data %>%
-        dplyr::filter(.data[["sheet"]] == tab)
+    dplyr::filter(.data[["sheet"]] == tab)
 
     # Retrieve continuous range
     range <- extract_range(md_dd, fields_names, range_low, range_upp)
@@ -78,7 +78,6 @@ check_continuous <- function(
 
     } else {
 
-        # Check categorical
         dd %>%
             dplyr::select(
                 dplyr::contains(center),
@@ -90,7 +89,10 @@ check_continuous <- function(
             dplyr::mutate(
                 variables = purrr::map(
                     .x = .data[["variables"]],
-                    ~ which_out_range(data = .x, range = range)
+                    # If some variables is character, transform it
+                    # in double
+                    ~ dplyr::mutate_if(.x, is.character, as.double) %>%
+                        which_out_range(range = range)
                 )
             ) %>%
             tidyr::unnest(cols = .data[["variables"]]) %>%
