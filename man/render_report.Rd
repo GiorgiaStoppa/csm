@@ -54,7 +54,7 @@ be displayed. Default is FALSE.}
 \link[rmarkdown:render]{render}.}
 }
 \description{
-The function renders a report for the data quality monitoring for
+The function renders a report with the data quality check for
 each center. A template (which must be a .Rmd file) and a list of
 centers must be provided.
 }
